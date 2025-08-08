@@ -1,4 +1,5 @@
-import casual from './assets/casual_dog.png'
+import casual from './assets/casual_dog.png';
+import google from './assets/Google.png';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
 
@@ -7,25 +8,65 @@ export default function App() {
     <View style={styles.container}>
       <Image
       source = {casual} 
-      style = {{ width: 330, height: 330}}
+      style = {{ width: 300, height: 300}}
       />
-        <Text style = {styles.msg}>ótimo dia!</Text>
-        <Text style = {styles.msg2}>Como deseja acesar?</Text>
-          <TouchableOpacity >
+      <Text style = {styles.msg}>ótimo dia!</Text>
+      <Text style = {styles.msg2}>Como deseja acesar?</Text>
+      <TouchableOpacity style = {styles.botao} 
+        onPress={() => alert('Google')}>
+          <Image
+          source = {google} 
+          style = {styles.google}
+          />
 
-          </TouchableOpacity>
+          <Text> Como deseja acessar?</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style = {styles.botao2} 
+        onPress={() => alert('Opções')}>
+          <Text> Outras opções?</Text>
+      </TouchableOpacity>
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#e9e9e9',
     alignItems: 'center',
     justifyContent: 'center',
   },
   msg: {
     fontSize: 45,
-  }
+  },
+  msg2: {
+  },
+  botao: {
+    backgroundColor: '#14c871',
+    borderRadius: 10,
+    borderColor: 'black',
+    margin: 10,
+    padding: 25,
+    width: 330,
+    alignItems: 'center', 
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  
+  botao2: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    borderColor: '#14c871',
+    margin: 10,
+    padding: 25,
+    width: 330,
+    alignItems: 'center',
+    borderWidth: 1,
+  },
+  google: {
+    width: 30, 
+    height: 30,
+  },
 });
