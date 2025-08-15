@@ -1,158 +1,147 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput } from 'react-native';
-import google from './assets/Google.png';
-import facebook from './assets/Facebook.png';
-export default function App() {
- const [email, setEmail] = useState('');
- const [senha, setSenha] = useState('');
- const [lembrar, setLembrar] = useState(false);
- return (
-<View style={styles.container}>
-<Text style={styles.titulo}>Acesse</Text>
-<Text style={styles.subtitulo}>com E-mail e senha</Text>
-<Text style={styles.label}>E-mail</Text>
-<TextInput
-       style={styles.input}
-       placeholder="Digite seu E-mail"
-       value={email}
-       onChangeText={setEmail}
-     />
-<Text style={styles.label}>Senha</Text>
-<TextInput
-       style={styles.input}
-       placeholder="Digite sua senha"
-       secureTextEntry
-       value={senha}
-       onChangeText={setSenha}
-     />
-<View style={styles.row}>
-<TouchableOpacity
-         style={styles.checkboxRow}
-         onPress={() => setLembrar(!lembrar)}
->
-<View style={[styles.checkbox, lembrar && styles.checkboxAtivo]} />
-<Text style={styles.checkboxTexto}>Lembrar senha</Text>
-</TouchableOpacity>
-<TouchableOpacity>
-<Text style={styles.link}>Esqueci minha senha</Text>
-</TouchableOpacity>
-</View>
-<View style={styles.botoes}>
-<TouchableOpacity style={styles.btnAcessar}>
-<Text style={styles.txtAcessar}>Acessar</Text>
-</TouchableOpacity>
-<TouchableOpacity style={styles.btnCadastrar}>
-<Text style={styles.txtCadastrar}>Cadastrar</Text>
-</TouchableOpacity>
-</View>
-<Text style={styles.ou}>Ou continue com</Text>
-<View style={styles.social}>
-<TouchableOpacity>
-<Image source={google} style={styles.logo} />
-</TouchableOpacity>
-<TouchableOpacity>
-<Image source={facebook} style={styles.logo} />
-</TouchableOpacity>
-</View>
-</View>
- );
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
+import Icon from "react-native-vector-icons/Feather";
+import Google from '../assets/Google.png';
+import Facebook from '../assets/Facebook.png';
+ 
+export default function Acesse() {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+ 
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Acesse</Text>
+      <Text style={styles.subtitle}>com E-mail e senha</Text>
+ 
+      <Text style={styles.label}>E-mail</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Digite seu E-mail"
+        value={email}
+        onChangeText={setEmail}
+      />
+ 
+      <Text style={styles.label}>Senha</Text>
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={[styles.input, { flex: 1 }]}
+          placeholder="Digite sua senha"
+          secureTextEntry={!mostrarSenha}
+          value={senha}
+          onChangeText={setSenha}
+        />
+        <TouchableOpacity onPress={() => setMostrarSenha(!mostrarSenha)}>
+          <Icon name={mostrarSenha ? "eye-off" : "eye"} size={20} color="#888" />
+        </TouchableOpacity>
+      </View>
+ 
+      <View style={styles.optionsRow}>
+        <TouchableOpacity style={styles.link}>
+          <Text>Esqueci minha senha</Text>
+        </TouchableOpacity>
+      </View>
+ 
+      <View style={styles.buttonsRow}>
+        <TouchableOpacity style={styles.buttonGreen}>
+          <Text style={styles.buttonText}>Acessar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonWhite}>
+          <Text style={[styles.buttonText, { color: "#00A859" }]}>Cadastrar</Text>
+        </TouchableOpacity>
+      </View>
+ 
+      <Text style={styles.orText}>Ou continue com</Text>
+ 
+      <View style={styles.socialRow}>
+        <Image source={Google} style={styles.socialIcon} />
+        <Image source={Facebook} style={styles.socialIcon} />
+      </View>
+    </View>
+  );
 }
+ 
 const styles = StyleSheet.create({
- container: {
-   flex: 1,
-   backgroundColor: '#fff',
-   padding: 25,
- },
- titulo: {
-   fontSize: 28,
-   fontWeight: 'bold',
-   marginTop: 20,
- },
- subtitulo: {
-   color: '#555',
-   marginBottom: 20,
- },
- label: {
-   marginTop: 15,
-   fontWeight: 'bold',
- },
- input: {
-   backgroundColor: '#f2f2f2',
-   borderRadius: 8,
-   padding: 12,
-   marginTop: 5,
- },
- row: {
-   flexDirection: 'row',
-   justifyContent: 'space-between',
-   alignItems: 'center',
-   marginTop: 10,
- },
- checkboxRow: {
-   flexDirection: 'row',
-   alignItems: 'center',
- },
- checkbox: {
-   width: 18,
-   height: 18,
-   borderRadius: 4,
-   borderWidth: 1,
-   borderColor: '#14c871',
-   marginRight: 6,
- },
- checkboxAtivo: {
-   backgroundColor: '#14c871',
- },
- checkboxTexto: {
-   color: '#333',
- },
- link: {
-   color: '#333',
- },
- botoes: {
-   flexDirection: 'row',
-   justifyContent: 'space-between',
-   marginTop: 25,
- },
- btnAcessar: {
-   flex: 1,
-   backgroundColor: '#14c871',
-   padding: 15,
-   borderRadius: 8,
-   alignItems: 'center',
-   marginRight: 5,
- },
- txtAcessar: {
-   color: '#fff',
-   fontWeight: 'bold',
- },
- btnCadastrar: {
-   flex: 1,
-   borderColor: '#14c871',
-   borderWidth: 1,
-   padding: 15,
-   borderRadius: 8,
-   alignItems: 'center',
-   marginLeft: 5,
- },
- txtCadastrar: {
-   color: '#14c871',
-   fontWeight: 'bold',
- },
- ou: {
-   textAlign: 'center',
-   color: '#777',
-   marginVertical: 20,
- },
- social: {
-   flexDirection: 'row',
-   justifyContent: 'center',
-   gap: 20,
- },
- logo: {
-   width: 40,
-   height: 40,
-   resizeMode: 'contain',
-   marginHorizontal: 15,
- },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    padding: 20,
+    paddingTop: 50,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+  },
+  subtitle: {
+    color: "#666",
+    marginBottom: 20,
+  },
+  label: {
+    marginTop: 15,
+    fontWeight: "bold",
+  },
+  input: {
+    backgroundColor: "#f0f2ff",
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 5,
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f0f2ff",
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginTop: 5,
+  },
+  optionsRow: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginTop: 15,
+  },
+  link: {
+    color: "#00A859",
+  },
+  buttonsRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
+  buttonGreen: {
+    backgroundColor: "#00A859",
+    padding: 12,
+    borderRadius: 8,
+    flex: 1,
+    marginRight: 10,
+    alignItems: "center",
+  },
+  buttonWhite: {
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#00A859",
+    padding: 12,
+    borderRadius: 8,
+    flex: 1,
+    marginLeft: 10,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  orText: {
+    textAlign: "center",
+    marginTop: 30,
+    color: "#666",
+  },
+  socialRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 15,
+  },
+  socialIcon: {
+    width: 40,
+    height: 40,
+    marginHorizontal: 10,
+  },
 });

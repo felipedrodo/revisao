@@ -2,8 +2,13 @@ import casual from './assets/casual_dog.png';
 import google from './assets/Google.png';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Acesse from './src/Acesse';
+ 
+const Stack = createNativeStackNavigator();
 
-export default function App() {
+function Home({navigation}) {
   return (
     <View style={styles.container}>
       <Image
@@ -11,7 +16,7 @@ export default function App() {
       style = {{ width: 300, height: 300}}
       />
       <Text style = {styles.msg}>ótimo dia!</Text>
-      <Text style = {styles.msg2}>Como deseja acesar?</Text>
+      <Text style = {styles.msg2}>Como deseja acessar?</Text>
       <TouchableOpacity style = {styles.botao} 
         onPress={() => alert('Google')}>
           <Image
@@ -22,7 +27,7 @@ export default function App() {
           <Text> Como deseja acessar?</Text>
       </TouchableOpacity>
       <TouchableOpacity style = {styles.botao2} 
-        onPress={() => alert('Opções')}>
+        onPress={() => navigation.navigate('Login')}>
           <Text> Outras opções?</Text>
       </TouchableOpacity>
     </View>
@@ -30,6 +35,16 @@ export default function App() {
   );
 }
 
+  export default function App() {
+   return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+          <Stack.Screen name="Login" component={Acesse} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
