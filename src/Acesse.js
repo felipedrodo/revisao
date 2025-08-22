@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 import Google from '../assets/Google.png';
 import Facebook from '../assets/Facebook.png';
- 
+import Icon from 'react-native-vector-icons/Ionicons';
+
 export default function Acesse() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [lembrar, setLembrar] = useState(false);
  
   return (
     <View style={styles.container}>
@@ -23,7 +24,7 @@ export default function Acesse() {
       />
  
       <Text style={styles.label}>Senha</Text>
-      <View style={styles.passwordContainer}>
+      <View style={styles.senha}>
         <TextInput
           style={[styles.input, { flex: 1 }]}
           placeholder="Digite sua senha"
@@ -32,30 +33,42 @@ export default function Acesse() {
           onChangeText={setSenha}
         />
         <TouchableOpacity onPress={() => setMostrarSenha(!mostrarSenha)}>
-          <Icon name={mostrarSenha ? "eye-off" : "eye"} size={20} color="#888" />
+          <Icon name={mostrarSenha ? "eye-off" : "eye"} size={20} color={'#888'}/>
         </TouchableOpacity>
       </View>
  
-      <View style={styles.optionsRow}>
-        <TouchableOpacity style={styles.link}>
-          <Text>Esqueci minha senha</Text>
+      <View style={styles.esqueci}>
+      <View style={styles.lembrarContainer}>
+        <TouchableOpacity 
+          style={[
+            styles.checkbox, 
+            lembrar && { backgroundColor: '#14c871' }
+          ]}
+          onPress={() => setLembrar(!lembrar)}
+        >   
+          {lembrar && <Icon name="checkmark" size={16} color="#fff" />}
+        </TouchableOpacity>
+          <Text>Lembrar senha</Text>
+      </View>
+        <TouchableOpacity>
+          <Text style={styles.esqueciTexto}>Esqueci minha senha</Text>
         </TouchableOpacity>
       </View>
  
-      <View style={styles.buttonsRow}>
-        <TouchableOpacity style={styles.buttonGreen}>
+      <View style={styles.buttons}>
+        <TouchableOpacity style={styles.button1}>
           <Text style={styles.buttonText}>Acessar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonWhite}>
-          <Text style={[styles.buttonText, { color: "#00A859" }]}>Cadastrar</Text>
+        <TouchableOpacity style={styles.button2}>
+          <Text style={[styles.buttonText, { color: "#000000" }]}>Cadastrar</Text>
         </TouchableOpacity>
       </View>
  
-      <Text style={styles.orText}>Ou continue com</Text>
+      <Text style={styles.ou}>Ou continue com</Text>
  
-      <View style={styles.socialRow}>
-        <Image source={Google} style={styles.socialIcon} />
-        <Image source={Facebook} style={styles.socialIcon} />
+      <View style={styles.icons}>
+        <Image source={Google} style={styles.icon} />
+        <Image source={Facebook} style={styles.icon} />
       </View>
     </View>
   );
@@ -77,16 +90,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   label: {
-    marginTop: 15,
+    marginTop: 22,
     fontWeight: "bold",
   },
   input: {
     backgroundColor: "#f0f2ff",
-    padding: 12,
+    padding: 18,
     borderRadius: 8,
     marginTop: 5,
   },
-  passwordContainer: {
+  senha: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#f0f2ff",
@@ -94,32 +107,48 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 5,
   },
-  optionsRow: {
+  esqueci: {
     flexDirection: "row",
-    justifyContent: "flex-end",
-    marginTop: 15,
+    alignItems: "center",
+    marginTop: 30,
+    justifyContent:"space-between"
   },
-  link: {
-    color: "#00A859",
+  lembrarContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-  buttonsRow: {
+  esqueciTexto: {
+    fontWeight: "500",
+  },
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderWidth: 1.5,
+    borderColor: "#14c871",
+    borderRadius: 4,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 8,
+    backgroundColor: "#fff",
+  },
+  buttons: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 20,
+    marginTop: 30,
   },
-  buttonGreen: {
-    backgroundColor: "#00A859",
-    padding: 12,
+  button1: {
+    backgroundColor: "#14c871",
+    padding: 19,
     borderRadius: 8,
     flex: 1,
     marginRight: 10,
     alignItems: "center",
   },
-  buttonWhite: {
+  button2: {
     backgroundColor: "#fff",
     borderWidth: 1,
-    borderColor: "#00A859",
-    padding: 12,
+    borderColor: "#14c871",
+    padding: 19,
     borderRadius: 8,
     flex: 1,
     marginLeft: 10,
@@ -129,17 +158,17 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
   },
-  orText: {
+  ou: {
     textAlign: "center",
     marginTop: 30,
     color: "#666",
   },
-  socialRow: {
+  icons: {
     flexDirection: "row",
     justifyContent: "center",
     marginTop: 15,
   },
-  socialIcon: {
+  icon: {
     width: 40,
     height: 40,
     marginHorizontal: 10,

@@ -18,7 +18,7 @@ function Home({navigation}) {
       <Text style = {styles.msg}>ótimo dia!</Text>
       <Text style = {styles.msg2}>Como deseja acessar?</Text>
       <TouchableOpacity style = {styles.botao} 
-        onPress={() => alert('Google')}>
+        onPress={() => navigation.navigate('Login')}>
           <Image
           source = {google} 
           style = {styles.google}
@@ -40,7 +40,7 @@ function Home({navigation}) {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-          <Stack.Screen name="Login" component={Acesse} options={{ headerShown: false }} />
+          <Stack.Screen name="Login" component={Acesse} options={{ headerShown: true }} />
         </Stack.Navigator>
       </NavigationContainer>
     );
